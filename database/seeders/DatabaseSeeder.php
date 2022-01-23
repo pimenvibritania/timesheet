@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(DataRowsTableSeeder::class);
         $this->call(DataTypesTableSeeder::class);
         $this->call(MenuItemsTableSeeder::class);
+        $this->call(PermissionsTableSeeder::class);
     }
 }
