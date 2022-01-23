@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(MembersTableSeeder::class);
         $this->call(SprintsTableSeeder::class);
         $this->call(ReportsTableSeeder::class);
+        $this->call(PermissionsTableSeeder::class);
     }
 }
