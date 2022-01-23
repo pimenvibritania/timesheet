@@ -21,5 +21,6 @@ Route::get('/', function () {
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 
-    Route::get('/sprints/export', [SprintController::class, 'export'])->name('sprints.export');
+    Route::get('/sprints/export/{id}', [SprintController::class, 'export'])->name('sprints.export');
 });
+

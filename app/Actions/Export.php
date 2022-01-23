@@ -2,10 +2,9 @@
 
 namespace App\Actions;
 
-use JetBrains\PhpStorm\ArrayShape;
 use TCG\Voyager\Actions\AbstractAction;
 
-class MyAction extends AbstractAction
+class Export extends AbstractAction
 {
     public function getTitle(): string
     {

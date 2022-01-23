@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Actions\MyAction;
+use App\Actions\Export;
 use App\Actions\ViewAction;
 use Illuminate\Support\ServiceProvider;
 use TCG\Voyager\Facades\Voyager;
@@ -27,6 +27,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Voyager::addAction(MyAction::class);
+        Voyager::addAction(Export::class);
     }
 }
