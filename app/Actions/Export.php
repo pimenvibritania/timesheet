@@ -31,7 +31,7 @@ class Export extends AbstractAction
 
     public function getDefaultRoute(): string
     {
-        return route('sprints.export');
+        return route('sprints.export',$this->data->{$this->data->getKeyName()} );
     }
 
     public function shouldActionDisplayOnDataType(): bool

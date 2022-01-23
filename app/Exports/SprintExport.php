@@ -3,10 +3,10 @@
 namespace App\Exports;
 
 use App\Models\Sprint;
-use Illuminate\Support\Collection;
-use Maatwebsite\Excel\Concerns\FromCollection;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
 
-class SprintExport implements FromCollection
+class SprintExport implements FromView
 {
 
     public function __construct(
@@ -15,11 +15,11 @@ class SprintExport implements FromCollection
     {
 
     }
-    /**
-    * @return Collection
-    */
-    public function collection(): Collection
+
+    public function view(): View
     {
-        return Sprint::find($this->sprintId);
+        return view('exports.sprints', [
+            'sprints' => Sprint::with('report.member')->where('id', $this->sprintId)->first()
+        ]);
     }
 }
