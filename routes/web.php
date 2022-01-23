@@ -14,7 +14,7 @@ use App\Http\Controllers\SprintController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('voyager.dashboard');
 });
 
 
