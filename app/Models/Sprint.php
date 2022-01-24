@@ -18,6 +18,8 @@ class Sprint extends Model
 {
     use HasFactory;
 
+    protected $guarded = ['id'];
+
     public function report(): HasMany
     {
         return $this->hasMany(Report::class);

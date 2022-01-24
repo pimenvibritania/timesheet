@@ -1,0 +1,196 @@
+{
+    "blocks": [
+        {
+            "type": "header",
+            "text": {
+                "type": "plain_text",
+                "text": "Daily scrum report | Pirman Abdurohman",
+                "emoji": true
+            }
+        },
+        {
+            "type": "context",
+            "elements": [
+                {
+                    "type": "plain_text",
+                    "text": "Januari 2021",
+                    "emoji": true
+                }
+            ]
+        },
+        {
+            "type": "divider"
+        },
+        {
+            "type": "section",
+            "fields": [
+                {
+                    "type": "mrkdwn",
+                    "text": "*Sprint:* \n value"
+                },
+                {
+                    "type": "mrkdwn",
+                    "text": "*Status:* \n value"
+                },
+                {
+                    "type": "mrkdwn",
+                    "text": "*Started:* \n value"
+                },
+                {
+                    "type": "mrkdwn",
+                    "text": "*Ended:* \n value"
+                }
+            ]
+        },
+        {
+            "type": "divider"
+        },
+        {
+            "type": "section",
+            "fields": [
+                {
+                    "type": "mrkdwn",
+                    "text": "*Previous Task:*"
+                }
+            ]
+        },
+        {
+            "type": "rich_text",
+            "block_id": "erY",
+            "elements": [
+                {
+                    "type": "rich_text_list",
+                    "elements": [
+                        {
+                            "type": "rich_text_section",
+                            "elements": [
+                                {
+                                    "type": "text",
+                                    "text": "satu"
+                                }
+                            ]
+                        }
+                    ],
+                    "style": "bullet",
+                    "indent": 0
+                },
+                {
+                    "type": "rich_text_list",
+                    "elements": [
+                        {
+                            "type": "rich_text_section",
+                            "elements": [
+                                {
+                                    "type": "text",
+                                    "text": "dua"
+                                }
+                            ]
+                        }
+                    ],
+                    "style": "bullet",
+                    "indent": 0
+                }
+            ]
+        },
+        {
+            "type": "divider"
+        },
+        {
+            "type": "section",
+            "fields": [
+                {
+                    "type": "mrkdwn",
+                    "text": "*Next Task:*"
+                }
+            ]
+        },
+        {
+            "type": "rich_text",
+            "block_id": "next",
+            "elements": [
+                {
+                    "type": "rich_text_list",
+                    "elements": [
+                        {
+                            "type": "rich_text_section",
+                            "elements": [
+                                {
+                                    "type": "text",
+                                    "text": "satu"
+                                }
+                            ]
+                        }
+                    ],
+                    "style": "bullet",
+                    "indent": 0
+                },
+                {
+                    "type": "rich_text_list",
+                    "elements": [
+                        {
+                            "type": "rich_text_section",
+                            "elements": [
+                                {
+                                    "type": "text",
+                                    "text": "dua"
+                                }
+                            ]
+                        }
+                    ],
+                    "style": "bullet",
+                    "indent": 0
+                }
+            ]
+        },
+        {
+            "type": "divider"
+        },
+        {
+            "type": "section",
+            "fields": [
+                {
+                    "type": "mrkdwn",
+                    "text": "*Blocking Task:*"
+                }
+            ]
+        },
+        {
+            "type": "rich_text",
+            "block_id": "blocking",
+            "elements": [
+                {
+                    "type": "rich_text_list",
+                    "elements": [
+                        {
+                            "type": "rich_text_section",
+                            "elements": [
+                                {
+                                    "type": "text",
+                                    "text": "satu"
+                                }
+                            ]
+                        }
+                    ],
+                    "style": "bullet",
+                    "indent": 0
+                },
+                {
+                    "type": "rich_text_list",
+                    "elements": [
+                        {
+                            "type": "rich_text_section",
+                            "elements": [
+                                {
+                                    "type": "text",
+                                    "text": "dua"
+                                }
+                            ]
+                        }
+                    ],
+                    "style": "bullet",
+                    "indent": 0
+                }
+            ]
+        }
+    ]
+}

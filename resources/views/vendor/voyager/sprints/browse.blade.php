@@ -7,6 +7,56 @@
         <h1 class="page-title">
             <i class="{{ $dataType->icon }}"></i> {{ $dataType->getTranslatedAttribute('display_name_plural') }}
         </h1>
+
+        <button class="btn btn-primary btn-add-new" data-toggle="modal" data-target="#exampleModal">
+            <i class="voyager-plus"></i> <span>Import Jira</span>
+        </button>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="exampleModalLabel">Import Sprint from Jira</h4>
+                        <hr/>
+                    </div>
+                    <div class="modal-body" style="margin-top: -30px">
+                        <form>
+                            <div class="form-group">
+                                <label for="jira_sprint_id" class="col-form-label">Sprints</label>
+                                <select name="jira_sprint_id" class="form-control select2" id="jira_sprint_id">
+                                </select>
+                            </div>
+                            <div class="form-group">
+
+                                <label for="jiraSprintName">Sprint Name</label>
+                                <input type="text" readonly class="form-control" id="jiraSprintName" />
+
+                                <label for="jiraSprintStatus">Sprint Status</label>
+                                <input type="text" readonly class="form-control" id="jiraSprintStatus" />
+
+                                <label for="jiraSprintStart">Sprint Start</label>
+                                <input type="text" readonly class="form-control" id="jiraSprintStart" />
+
+                                <label for="jiraSprintEnd">Sprint End</label>
+                                <input type="text" readonly class="form-control" id="jiraSprintEnd" />
+
+                                <label for="jiraSprintDuration">Sprint Duration (in week)</label>
+                                <input type="number" readonly class="form-control" id="jiraSprintDuration" />
+
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="jiraSubmit">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         @can('add', app($dataType->model_name))
             <a href="{{ route('voyager.'.$dataType->slug.'.create') }}" class="btn btn-success btn-add-new">
                 <i class="voyager-plus"></i> <span>{{ __('voyager::generic.add_new') }}</span>
@@ -39,6 +89,7 @@
 @section('content')
     <div class="page-content browse container-fluid">
         @include('voyager::alerts')
+
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-bordered">
@@ -326,6 +377,89 @@
     @endif
     <script>
         $(document).ready(function () {
+            const jiraUrl = "{{route('jira.all.sprints')}}";
+            $.ajax({
+                url: jiraUrl,
+                type:"GET",
+                success:function(response){
+                    res = response.values;
+
+                    $.each(res, function (key, value) {
+                        $('#jira_sprint_id').append(
+                            `<option value="${value.id}">${value.name}</option>`
+                        );
+                    })
+                },
+                error: function(error) {
+                    alert(error);
+                }
+            });
+
+            $("#jira_sprint_id").change(function (){
+                const sprintId = $( "#jira_sprint_id option:selected").val()
+                const jiraSprintUrl = `{{url('/admin/jira/sprint/')}}/${sprintId}`
+
+                $.ajax({
+                    url: jiraSprintUrl,
+                    type:"GET",
+                    success:function(response){
+                        let start = new Date(response.startDate);
+                        let end = new Date(response.endDate);
+                        let diff = Math.round((end-start)/ 604800000);
+
+                        $("#jiraSprintName").val(response.name)
+                        $("#jiraSprintStart").val(start)
+                        $("#jiraSprintEnd").val(end)
+                        $("#jiraSprintStatus").val(response.state)
+                        $("#jiraSprintDuration").val(diff)
+
+                        $("#jiraSprintStart").attr("start-attr", response.startDate);
+                        $("#jiraSprintEnd").attr("end-attr", response.endDate);
+
+                    },
+                    error: function(error) {
+                        alert(error);
+                    }
+                });
+            });
+
+            $('#jiraSubmit').click(function(){
+                const sprintId = $( "#jira_sprint_id option:selected").val();
+                const sprintName = $('#jiraSprintName').val();
+                const sprintStart = $('#jiraSprintStart').attr("start-attr");
+                const sprintEnd = $('#jiraSprintEnd').attr("end-attr");
+                const sprintStatus = $('#jiraSprintStatus').val();
+                const sprintDuration = $('#jiraSprintDuration').val();
+                const sprintLink = `https://doogether.atlassian.net/secure/GHGoToBoard.jspa?sprintId=${sprintId}`
+
+                const url = "{{route('jira.create.sprint')}}";
+                let _token   = $('meta[name="csrf-token"]').attr('content');
+
+                const fail = 'https://codepen.io/uxjulia/pen/d88ca4d7142a75937092ed02e8ddbcb1.html'
+
+                $.ajax({
+                    url: url,
+                    type:"POST",
+                    data:{
+                        jira_sprint_id:sprintId,
+                        jira_sprint_link:sprintLink,
+                        name: sprintName,
+                        ended:sprintEnd,
+                        started:sprintStart,
+                        status:sprintStatus,
+                        duration:sprintDuration,
+                        _token: _token
+                    },
+                    success:function(response){
+                        location.reload();
+
+                    },
+                    error: function(error) {
+                        alert(error);
+                    }
+                });
+            });
+
             @if (!$dataType->server_side)
                 var table = $('#dataTable').DataTable({!! json_encode(
                     array_merge([
