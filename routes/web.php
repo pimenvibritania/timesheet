@@ -15,8 +15,7 @@ use App\Http\Controllers\SprintController;
 */
 
 Route::get('/', function () {
-
-//    return redirect()->route('voyager.dashboard');
+    return redirect()->route('voyager.dashboard');
 });
 
 Route::get('/test/{projectKey}', [SprintController::class, 'fetchSprints']);
