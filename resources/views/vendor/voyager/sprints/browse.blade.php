@@ -48,6 +48,9 @@
 
                             </div>
                         </form>
+                        <a href="" target="_blank" class="btn btn-info disabled" id="gotoBoard">
+                            Go to Board
+                        </a>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -406,6 +409,7 @@
                         let start = new Date(response.startDate);
                         let end = new Date(response.endDate);
                         let diff = Math.round((end-start)/ 604800000);
+                        let sprintId = response.id
 
                         $("#jiraSprintName").val(response.name)
                         $("#jiraSprintStart").val(start)
@@ -416,6 +420,8 @@
                         $("#jiraSprintStart").attr("start-attr", response.startDate);
                         $("#jiraSprintEnd").attr("end-attr", response.endDate);
 
+                        $("#gotoBoard").attr("href", `https://doogether.atlassian.net/secure/GHGoToBoard.jspa?sprintId=${sprintId}`);
+                        $("#gotoBoard").attr("class", "btn btn-primary");
                     },
                     error: function(error) {
                         alert(error);
